@@ -11,7 +11,7 @@ provider "docker" {
   host = "npipe:////./pipe/docker_engine"
 }
 
-
+#initially created nodejs site instead of nginx
 resource "docker_image" "lab1_image" {
   name = "lab1-web-app-image"
   build {
@@ -20,6 +20,7 @@ resource "docker_image" "lab1_image" {
   }
 }
 
+#initially created nodejs site instead of nginx
 resource "docker_container" "node_web_app_container" {
   name = "lab1-web-app-container"
   image = docker_image.lab1_image.image_id
@@ -31,12 +32,13 @@ resource "docker_container" "node_web_app_container" {
   }
 }
 
-
+#Docker image for NGINX required by lab1
 resource "docker_image" "nginx_image" {
   name = "nginx:latest"
   keep_locally = true
 }
 
+#Docker container for NGINX required by lab1
 resource "docker_container" "nginx_container" {
   image = docker_image.nginx_image.image_id
   name = "nginx-server"
@@ -46,6 +48,6 @@ resource "docker_container" "nginx_container" {
     external = 8080
   }
 
-  
+
   
 }
