@@ -30,3 +30,22 @@ resource "docker_container" "node_web_app_container" {
     external = 3000
   }
 }
+
+
+resource "docker_image" "nginx_image" {
+  name = "nginx:latest"
+  keep_locally = true
+}
+
+resource "docker_container" "nginx_container" {
+  image = docker_image.nginx_image.image_id
+  name = "nginx-server"
+
+  ports {
+    internal = 80
+    external = 8080
+  }
+
+  
+  
+}
